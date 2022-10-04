@@ -9,7 +9,7 @@ ion-header {
 				margin-right: 10px;
 			}
 			span {
-				font-size: 16px;
+				font-size: 18px;
 			}
 			ion-button {
 				display: block;
@@ -21,6 +21,8 @@ ion-header {
 
 ion-content {
 	.background {
+		display: none;
+		opacity: 0;
 		.bank-information {
 			.qrcode {
 				width: 100px;
@@ -49,6 +51,52 @@ ion-content {
 		.logout {
 			margin-top: 32px;
 			margin-bottom: 100px;
+		}
+	}
+
+	.blocks {
+		.credit-card {
+			.credit-card-content {
+				span {
+					&.credit-card-title {
+						color: #0ab9cd;
+					}
+					&.credit-card-amount {
+						font-size: 28px;
+						display: block;
+						color: #0ab9cd;
+					}
+					&.credit-card-limit {
+						color: #94c22b;
+					}
+				}
+			}
+			.purchase-item {
+				background: #f4f5f8;
+			}
+		}
+
+		.account-card {
+			.account-card-content {
+				span {
+					&.account-card-amount {
+						font-size: 28px;
+						display: block;
+					}
+				}
+			}
+			.payments-item {
+				background: #f4f5f8;
+			}
+		}
+
+		.rewards-card {
+			.rewards-card-title {
+				font-size: 20px;
+			}
+			.rewards-card-icon {
+				font-size: 30px;
+			}
 		}
 	}
 }
