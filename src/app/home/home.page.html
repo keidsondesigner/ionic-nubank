@@ -3,8 +3,8 @@
 		<ion-title class="ion-text-center">
 			<img src="/assets/img/nu-logo-branco.png">
 			<span>Keidson</span>
-			<ion-button color="light" fill="clear" size="small">
-				<ion-icon slot="icon-only" name="arrow-down-outline"></ion-icon>
+			<ion-button (click)="toggleBlocks()" color="light" fill="clear" size="small">
+				<ion-icon slot="icon-only" [name]="initalStep > 0 ? 'arrow-up-outline' : 'arrow-down-outline'"></ion-icon>
 			</ion-button>
 		</ion-title>
 	</ion-toolbar>
@@ -38,7 +38,7 @@
 		</ion-button>
 	</div>
 
-	<div class="blocks">
+	<div #blocks class="blocks">
 		<ion-card class="credit-card">
 			<ion-item class="ion-margin-vertical" lines="none">
 				<ion-icon slot="start" name="card-outline"></ion-icon>
@@ -67,22 +67,25 @@
 			<ion-item class="ion-margin-vertical" lines="none">
 				<ion-icon slot="start" name="cash-outline"></ion-icon>
 				<ion-label>Conta</ion-label>
-				<ion-button color="dark" fill="clear" slot="end">
-					<ion-icon slot="icon-only" name="eye-off-outline"></ion-icon>
+				<ion-button (click)="toggleShowAmount()" color="dark" fill="clear" slot="end">
+					<ion-icon slot="icon-only" [name]="showAmount ? iconEyeOff : iconEyeOn"></ion-icon>
 				</ion-button>
 			</ion-item>
 
 			<ion-card-content class="ion-no-padding">
 				<div class="ion-padding ion-margin-vertical account-card-content">
 					<span class="account-card-title">Saldo disponível</span>
-					<span class="account-card-amount">R$ 197,51</span>
+					<span class="account-card-amount">
+						{{ showAmount ? (accountDetails.accountBalance | currency:'BRL') : '******'}}
+					</span>
 				</div>
 
 				<div class="ion-padding-vertical payments-item">
 					<ion-item color="light" lines="none" detail>
 						<ion-icon slot="start" name="barcode-outline"></ion-icon>
 						<ion-label class="ion-text-wrap">
-							Boleto pago em 10/04/22 <br> Cartão Visa no valor de: R$ 322,81
+							Boleto pago em {{ paymentDateFormatted }} <br>
+							Cartão Visa no valor: {{ paymentDetails.paymentSlip | currency:'BRL' }}
 						</ion-label>
 					</ion-item>
 				</div>

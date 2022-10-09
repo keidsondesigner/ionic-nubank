@@ -1,12 +1,31 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Option } from '../model/option-interface';
+import { ItemAccount } from '../model/item-account';
+import { SlideOption } from '../model/slide-option-interface';
+import { AnimationController, Animation, Platform } from '@ionic/angular';
 
 @Component({
 	selector: 'app-home',
 	templateUrl: 'home.page.html',
 	styleUrls: ['home.page.scss'],
 })
-export class HomePage {
-	public options: Array<any> = [
+export class HomePage implements OnInit, AfterViewInit {
+	@ViewChild('blocks')
+	blocks: any;
+
+	@Input()
+	iconEyeOn = 'eye-outline';
+
+	@Input()
+	iconEyeOff = 'eye-off-outline';
+
+	@Input()
+	showAmount: boolean;
+
+	@Output()
+	eventChange: EventEmitter<boolean> = new EventEmitter();
+
+	public options: Array<Option> = [
 		{ icon: 'person-add-outline', text: 'Indicar amigos'},
 		{ icon: 'phone-portrait-outline', text: 'Recarga celular'},
 		{ icon: 'barcode-outline', text: 'Pagar boleto'},
@@ -16,9 +35,8 @@ export class HomePage {
 		{ icon: 'card-outline', text: 'Cartão virtual'},
 		{ icon: 'help-circle-outline', text: 'Me ajuda'},
 	];
-	public slidesOptions: any = { slidesPerView: 3.5, freeMode: true };
 
-	public itemsAccount: Array<any> = [
+	public itemsAccount: Array<ItemAccount> = [
 		{ icon: 'person-outline', text: 'Perfil'},
 		{ icon: 'cash-outline', text: 'Configurações da conta'},
 		{ icon: 'card-outline', text: 'Configurações do cartão'},
@@ -26,6 +44,72 @@ export class HomePage {
 		{ icon: 'help-circle-outline', text: 'Ajuda'},
 	];
 
-	constructor() { }
+	public slidesOptions: SlideOption = { slidesPerView: 3.5, freeMode: true };
+
+	public accountDetails = {
+		accountBalance: '1470.81',
+	};
+
+	public paymentDetails = {
+		paymentSlip: '322.55',
+		paymentDate: '06-10-2022',
+	};
+
+	public paymentDateFormatted: string;
+
+	public initalStep = 0;
+	public maxTranslate: number;
+	public animation: Animation;
+
+	constructor(
+		private animationCtrl: AnimationController,
+		private platform: Platform,
+		) { }
+
+	ngOnInit(): void {
+		this.maxTranslate = this.platform.height() - 200;
+
+		this.convertBalanceToNumber(this.accountDetails.accountBalance);
+		this.convertPaymentToNumber(this.paymentDetails.paymentSlip);
+
+		this.paymentDateFormatted = this.formatDateBRL(this.paymentDetails.paymentDate);
+	}
+
+	ngAfterViewInit(){
+		this.createAnimation();
+	}
+
+	toggleBlocks(){
+		this.initalStep = this.initalStep === 0 ? this.maxTranslate : 0;
+
+		this.animation.direction(this.initalStep === 0 ? 'reverse' : 'normal').play();
+	}
+
+	createAnimation(){
+		this.animation = this.animationCtrl.create()
+		.addElement(this.blocks.nativeElement)
+		.duration(300)
+		.fromTo('transform', 'translateY(0)', `translateY(${this.maxTranslate}px)`);
+	}
+
+	toggleShowAmount(){
+		this.showAmount = !this.showAmount;
+		this.eventChange.emit(this.showAmount);
+	};
+
+	convertBalanceToNumber(input: string) {
+		const numeric = Number(input);
+		return numeric;
+	}
+
+	convertPaymentToNumber(inputPayment: string) {
+		const numeric = Number(inputPayment);
+		return numeric;
+	}
+
+	formatDateBRL(inputDate: string){
+		const inputValueFormated = inputDate.replace(/\-/g, '/');
+		return inputValueFormated;
+	}
 
 }
