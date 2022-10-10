@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
 import { Option } from '../model/option-interface';
 import { ItemAccount } from '../model/item-account';
 import { SlideOption } from '../model/slide-option-interface';
@@ -12,6 +12,9 @@ import { AnimationController, Animation, Platform } from '@ionic/angular';
 export class HomePage implements OnInit, AfterViewInit {
 	@ViewChild('blocks')
 	blocks: any;
+
+	@ViewChild('background_bank_information')
+	backgroundBankInformation: any;
 
 	@Input()
 	iconEyeOn = 'eye-outline';
@@ -57,13 +60,14 @@ export class HomePage implements OnInit, AfterViewInit {
 
 	public paymentDateFormatted: string;
 
-	public initalStep = 0;
+	public initialStep = 0;
 	public maxTranslate: number;
 	public animation: Animation;
 
 	constructor(
 		private animationCtrl: AnimationController,
 		private platform: Platform,
+		private renderer: Renderer2,
 		) { }
 
 	ngOnInit(): void {
@@ -80,9 +84,10 @@ export class HomePage implements OnInit, AfterViewInit {
 	}
 
 	toggleBlocks(){
-		this.initalStep = this.initalStep === 0 ? this.maxTranslate : 0;
+		this.initialStep = this.initialStep === 0 ? this.maxTranslate : 0;
+		this.animation.direction(this.initialStep === 0 ? 'reverse' : 'normal').play();
 
-		this.animation.direction(this.initalStep === 0 ? 'reverse' : 'normal').play();
+		this.setBackgroundOpacity();
 	}
 
 	createAnimation(){
@@ -90,6 +95,14 @@ export class HomePage implements OnInit, AfterViewInit {
 		.addElement(this.blocks.nativeElement)
 		.duration(300)
 		.fromTo('transform', 'translateY(0)', `translateY(${this.maxTranslate}px)`);
+	}
+
+	setBackgroundOpacity(){
+		this.renderer.setStyle(this.backgroundBankInformation.nativeElement, 'opacity', this.initialStep === 0 ? '0' : '1');
+	}
+
+	fixedBlocks(): boolean {
+		return this.initialStep === this.maxTranslate;
 	}
 
 	toggleShowAmount(){

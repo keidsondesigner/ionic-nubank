@@ -13,6 +13,8 @@ ion-header {
 			}
 			ion-button {
 				display: block;
+				width: 60px;
+				margin: 10px auto;
 				--box-shadow:none;
 			}
 		}
@@ -48,9 +50,8 @@ ion-content {
 			}
 		}
 
-		.logout {
-			margin-top: 32px;
-			margin-bottom: 100px;
+		.btn-logout {
+			--border-width: 1px;
 		}
 	}
 
@@ -62,6 +63,12 @@ ion-content {
 		height: 100%;
 		overflow-y: scroll;
 		z-index: 999;
+
+		&.fixed {
+			position: fixed;
+			top: 110px;
+			overflow-y: hidden;
+		}
 
 		.credit-card {
 			.credit-card-content {
@@ -110,6 +117,13 @@ ion-content {
 }
 
 ion-footer {
+	&.hidden-footer {
+		height: 0;
+
+		ion-slides {
+			opacity: 0;
+		}
+	}
 	ion-slide {
 		.container-slide {
 			width: 100%;
@@ -129,4 +143,8 @@ ion-footer {
 			font-size: 16px;
 		}
 	}
+}
+
+.opacity-transition {
+	transition: opacity 0.5s ease-in-out;
 }

@@ -3,7 +3,7 @@
 		<ion-title class="ion-text-center">
 			<img src="/assets/img/nu-logo-branco.png">
 			<span>Keidson</span>
-			<ion-button (click)="toggleBlocks()" color="light" fill="clear" size="small">
+			<ion-button (click)="toggleBlocks()" color="light" fill="clear" size="small" expand="block">
 				<ion-icon slot="icon-only" [name]="initalStep > 0 ? 'arrow-up-outline' : 'arrow-down-outline'"></ion-icon>
 			</ion-button>
 		</ion-title>
@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content color="primary">
-	<div class="background">
+	<div #background_bank_information class="background opacity-transition ion-padding-horizontal">
 		<div class="bank-information ion-text-center">
 			<img class="qrcode" src="/assets/img/qrcode.png">
 
@@ -28,17 +28,17 @@
 
 		<ion-list lines="full">
 			<ion-item *ngFor="let itemAccount of itemsAccount" detail>
-				<ion-icon slot="start" [name]="itemAccount.icon"></ion-icon>
+				<ion-icon color="light" slot="start" [name]="itemAccount.icon"></ion-icon>
 				<ion-label>{{ itemAccount.text }}</ion-label>
 			</ion-item>
 		</ion-list>
 
-		<ion-button class="logout" color="light" expand="block" fill="outline">
+		<ion-button class="btn-logout" color="light" expand="block" fill="outline">
 			SAIR DA CONTA
 		</ion-button>
 	</div>
 
-	<div #blocks class="blocks">
+	<div #blocks class="blocks" [ngClass]="fixedBlocks() ? 'fixed' : 'null'">
 		<ion-card class="credit-card">
 			<ion-item class="ion-margin-vertical" lines="none">
 				<ion-icon slot="start" name="card-outline"></ion-icon>
@@ -116,9 +116,9 @@
 	</div>
 </ion-content>
 
-<ion-footer class="ion-no-border">
+<ion-footer [ngClass]="initialStep > 0 ? 'hidden-footer' : 'null'" class="ion-no-border">
 	<ion-toolbar class="ion-no-margin ion-padding-vertical" color="primary">
-		<ion-slides [options]="slidesOptions">
+		<ion-slides [options]="slidesOptions" class="opacity-transition">
 			<ion-slide *ngFor="let option of options">
 				<div class="container-slide ion-text-left">
 					<ion-icon [name]="option.icon"></ion-icon>
