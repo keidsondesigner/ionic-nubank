@@ -1,7 +1,8 @@
 ion-header {
 	ion-toolbar {
-		--min-height: 100px;;
+		--min-height: 100px;
 		ion-title {
+			padding-top: 36px;
 			align-items: flex-end;
 			img {
 				width: 38px;
@@ -24,6 +25,8 @@ ion-header {
 ion-content {
 	.background {
 		opacity: 0;
+		position: fixed;
+		width: 100%;
 
 		.bank-information {
 			.qrcode {
@@ -52,6 +55,7 @@ ion-content {
 
 		.btn-logout {
 			--border-width: 1px;
+			margin-top: 16px;
 		}
 	}
 
@@ -66,7 +70,7 @@ ion-content {
 
 		&.fixed {
 			position: fixed;
-			top: 110px;
+			top: 190px;
 			overflow-y: hidden;
 		}
 

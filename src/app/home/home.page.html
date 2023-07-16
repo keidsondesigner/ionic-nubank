@@ -1,39 +1,54 @@
 <ion-header class="ion-no-border">
 	<ion-toolbar color="primary">
 		<ion-title class="ion-text-center">
-			<img src="/assets/img/nu-logo-branco.png">
+			<img src="/assets/img/nu-logo-branco.png" />
 			<span>Keidson</span>
-			<ion-button (click)="toggleBlocks()" color="light" fill="clear" size="small" expand="block">
-				<ion-icon slot="icon-only" [name]="initalStep > 0 ? 'arrow-up-outline' : 'arrow-down-outline'"></ion-icon>
+			<ion-button
+				(click)="toggleBlocks()"
+				color="light"
+				fill="clear"
+				size="small"
+				expand="block"
+			>
+				<ion-icon
+					slot="icon-only"
+					[name]="initialStep > 0 ? 'arrow-up-outline' : 'arrow-down-outline'"
+				></ion-icon>
 			</ion-button>
 		</ion-title>
 	</ion-toolbar>
 </ion-header>
 
 <ion-content color="primary">
-	<div #background_bank_information class="background opacity-transition ion-padding-horizontal">
+	<div
+		#background_bank_information
+		class="background opacity-transition ion-padding-horizontal"
+	>
 		<div class="bank-information ion-text-center">
-			<img class="qrcode" src="/assets/img/qrcode.png">
+			<img class="qrcode" src="/assets/img/qrcode.png" />
 
-			<span>
-				Banco <strong>000 - Nu Pagamentos S.A.</strong>
-			</span>
-			<span>
-				Agência <strong>0000</strong>
-			</span>
-			<span>
-				Conta <strong>00000000-0</strong>
-			</span>
+			<span> Banco <strong>000 - Nu Pagamentos S.A.</strong> </span>
+			<span> Agência <strong>0000</strong> </span>
+			<span> Conta <strong>00000000-0</strong> </span>
 		</div>
 
 		<ion-list lines="full">
 			<ion-item *ngFor="let itemAccount of itemsAccount" detail>
-				<ion-icon color="light" slot="start" [name]="itemAccount.icon"></ion-icon>
+				<ion-icon
+					color="light"
+					slot="start"
+					[name]="itemAccount.icon"
+				></ion-icon>
 				<ion-label>{{ itemAccount.text }}</ion-label>
 			</ion-item>
 		</ion-list>
 
-		<ion-button class="btn-logout" color="light" expand="block" fill="outline">
+		<ion-button
+			class="btn-logout"
+			color="light"
+			expand="block"
+			fill="outline"
+		>
 			SAIR DA CONTA
 		</ion-button>
 	</div>
@@ -46,17 +61,23 @@
 			</ion-item>
 
 			<ion-card-content class="ion-no-padding">
-				<div class="ion-padding ion-margin-vertical credit-card-content">
+				<div
+					class="ion-padding ion-margin-vertical credit-card-content"
+				>
 					<span class="credit-card-title">Fatura atual</span>
 					<span class="credit-card-amount">R$ 57,55</span>
-					<span>Limite disponível <span class="credit-card-limit">R$ 2972,45</span></span>
+					<span
+						>Limite disponível
+						<span class="credit-card-limit">R$ 2972,45</span></span
+					>
 				</div>
 
 				<div class="ion-padding-vertical purchase-item">
 					<ion-item color="light" lines="none" detail>
 						<ion-icon slot="start" name="pizza-outline"></ion-icon>
 						<ion-label class="ion-text-wrap">
-							Compra mais recente: <br> Ifood no valor de R$ 54,00
+							Compra mais recente: <br />
+							Ifood no valor de R$ 54,00
 						</ion-label>
 					</ion-item>
 				</div>
@@ -67,25 +88,40 @@
 			<ion-item class="ion-margin-vertical" lines="none">
 				<ion-icon slot="start" name="cash-outline"></ion-icon>
 				<ion-label>Conta</ion-label>
-				<ion-button (click)="toggleShowAmount()" color="dark" fill="clear" slot="end">
-					<ion-icon slot="icon-only" [name]="showAmount ? iconEyeOff : iconEyeOn"></ion-icon>
+				<ion-button
+					(click)="toggleShowAmount()"
+					color="dark"
+					fill="clear"
+					slot="end"
+				>
+					<ion-icon
+						slot="icon-only"
+						[name]="showAmount ? iconEyeOff : iconEyeOn"
+					></ion-icon>
 				</ion-button>
 			</ion-item>
 
 			<ion-card-content class="ion-no-padding">
-				<div class="ion-padding ion-margin-vertical account-card-content">
+				<div
+					class="ion-padding ion-margin-vertical account-card-content"
+				>
 					<span class="account-card-title">Saldo disponível</span>
 					<span class="account-card-amount">
-						{{ showAmount ? (accountDetails.accountBalance | currency:'BRL') : '******'}}
+						{{ showAmount ? (accountDetails.accountBalance |
+						currency:'BRL') : '******'}}
 					</span>
 				</div>
 
 				<div class="ion-padding-vertical payments-item">
 					<ion-item color="light" lines="none" detail>
-						<ion-icon slot="start" name="barcode-outline"></ion-icon>
+						<ion-icon
+							slot="start"
+							name="barcode-outline"
+						></ion-icon>
 						<ion-label class="ion-text-wrap">
-							Boleto pago em {{ paymentDateFormatted }} <br>
-							Cartão Visa no valor: {{ paymentDetails.paymentSlip | currency:'BRL' }}
+							Boleto pago em {{ paymentDateFormatted }} <br />
+							Cartão Visa no valor: {{ paymentDetails.paymentSlip
+							| currency:'BRL' }}
 						</ion-label>
 					</ion-item>
 				</div>
@@ -94,7 +130,10 @@
 
 		<ion-card class="rewards-card">
 			<ion-card-content class="ion-text-center">
-				<ion-icon class="rewards-card-icon" name="gift-outline"></ion-icon>
+				<ion-icon
+					class="rewards-card-icon"
+					name="gift-outline"
+				></ion-icon>
 				<div class="ion-margin-vertical">
 					<ion-text color="dark">
 						<p class="rewards-card-title">
@@ -106,17 +145,16 @@
 						</p>
 					</ion-text>
 				</div>
-
-				<ion-button expand="block" fill="outline">
-					<strong>ATIVE O SEU REWARDS</strong>
-				</ion-button>
+				<ion-button id="open-modal" expand="block" fill="outline">ATIVE O SEU REWARDS</ion-button>
 			</ion-card-content>
 		</ion-card>
-
 	</div>
 </ion-content>
 
-<ion-footer [ngClass]="initialStep > 0 ? 'hidden-footer' : 'null'" class="ion-no-border">
+<ion-footer
+	[ngClass]="initialStep > 0 ? 'hidden-footer' : 'null'"
+	class="ion-no-border"
+>
 	<ion-toolbar class="ion-no-margin ion-padding-vertical" color="primary">
 		<ion-slides [options]="slidesOptions" class="opacity-transition">
 			<ion-slide *ngFor="let option of options">
@@ -128,3 +166,6 @@
 		</ion-slides>
 	</ion-toolbar>
 </ion-footer>
+
+
+<app-modal-bottom-offcanvas></app-modal-bottom-offcanvas>
