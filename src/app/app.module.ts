@@ -9,11 +9,12 @@ import { AppRoutingModule } from './app-routing.module';
 
 import ptBr from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
+import { SharedModule } from './shared/shared.module';
 registerLocaleData(ptBr);
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, SharedModule],
   providers: [
 	{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
 	{ provide: LOCALE_ID, useValue: 'pt' },

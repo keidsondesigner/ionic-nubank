@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
+import { StatusBar } from '@capacitor/status-bar';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss'],
+	selector: 'app-root',
+	templateUrl: 'app.component.html',
+	styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+	constructor() {
+		StatusBar.setBackgroundColor({ color: '#8a05be' });
+	}
 }
